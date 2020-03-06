@@ -145,7 +145,7 @@
             child.style.padding = "2px"
             let name = country["Country or region"]
             let num = `${index + 1}`
-            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} `
+            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} ${country["Generosity"]} `
             parent.appendChild(child)
         })
 
