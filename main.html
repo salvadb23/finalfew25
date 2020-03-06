@@ -28,13 +28,13 @@
         </div>
     </div>
     <div class="title">GDP GRAPH</div>
-    <div id="gdpgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div id="gdpgraph"  class="graph" style="display: flex; align-items: flex-end;"></div>
     <div class="title">SOCIAL GRAPH</div>
-    <div id="socialgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div id="socialgraph"  class="graph" style="display: flex; align-items: flex-end;"></div>
     <div class="title">HEALTH GRAPH</div>
-    <div id="healthgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div id="healthgraph"  class="graph" style="display: flex; align-items: flex-end;"></div>
     <div class="title">GENEROSITY GRAPH</div>
-    <div id="gengraph"  style="display: flex; align-items: flex-end;"></div>
+    <div id="gengraph"  class="graph" style="display: flex; align-items: flex-end;"></div>
     
     
 </body>
@@ -51,6 +51,14 @@
     .title {
         margin: 20px;
         font-weight: bold;
+    }
+
+    .graph {
+        border-top: 1px solid black;
+    }
+
+    div:nth-child(1){
+        margin-left: 0px !important;
     }
 </style>
 <script>
@@ -101,7 +109,7 @@
             let parent = document.querySelector("#socialgraph")
             let child = document.createElement("div")
             child.style.width = "40px"
-            child.style.color = "white"
+            child.style.color = "black"
             child.innerHTML = `${index}`
             child.style.border = "3px solid papayawhip"
             let height = country["Social support"] / gdpSort[0]["Social support"]
