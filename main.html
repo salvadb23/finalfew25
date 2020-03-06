@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1>World Happiness Study</h1>
+    <h2>FEW 2.5 Salvador Becerra</h2>
+    <h3 id="title"></h3>
+    <div style="display: flex; ">
+        <div class="wrap">
+            <h3>GDP</h3>
+            <div id="gdp"></div>
+        </div>
+        <div class="wrap">
+            <h3>SOCIAL</h3>
+            <div id="social"></div>
+        </div>
+        <div class="wrap">
+            <h3>HEALTH</h3>
+            <div id="health"></div>
+        </div>
+        <div class="wrap">
+            <h3>GENEROSITY</h3>
+            <div id="gen"></div>
+        </div>
+    </div>
+    <div class="title">GDP GRAPH</div>
+    <div id="gdpgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div class="title">SOCIAL GRAPH</div>
+    <div id="socialgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div class="title">HEALTH GRAPH</div>
+    <div id="healthgraph"  style="display: flex; align-items: flex-end;"></div>
+    <div class="title">GENEROSITY GRAPH</div>
+    <div id="gengraph"  style="display: flex; align-items: flex-end;"></div>
+    
+    
+</body>
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    .wrap {
+        padding: 20px;
+    }
+    h3 {
+        text-decoration: underline;
+    }
+    .title {
+        margin: 20px;
+        font-weight: bold;
+    }
+</style>
+<script>
+    let render = async () => {
+        let json = await (await fetch('2019.json')).json()
+
+        let title = document.getElementById("title")
+        title.innerHTML = `2019, total countries: ${json.length}`
+
+        let gdpSort = json.sort((a,b) => b["GDP per capita"] - a["GDP per capita"])
+        gdpSort.slice(0,10).forEach((country, index) => {
+            let parent = document.getElementById("gdp")
+            let child = document.createElement("div")
+            child.style.padding = "2px"
+            let name = country["Country or region"]
+            let num = `${index + 1}`
+            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} ${country["GDP per capita"]} `
+            parent.appendChild(child)
+        })
+
+        
+        gdpSort.slice(0,10).forEach((country, index) => {
+            let parent = document.querySelector("#gdpgraph")
+            let child = document.createElement("div")
+            child.style.width = "40px"
+            child.style.color = "white"
+            child.innerHTML = `${index}`
+            child.style.border = "3px solid palevioletred"
+            let height = country["GDP per capita"] / gdpSort[0]["GDP per capita"]
+            child.style.marginLeft = "20px"
+            child.style.height = `${height * 100}px`
+            child.style.backgroundColor = "palevioletred"
+            parent.appendChild(child)
+        })
+
+        let socialSort = json.sort((a,b) => b["Social support"] - a["Social support"])
+        socialSort.slice(0,10).forEach((country, index) => {
+            let parent = document.getElementById("social")
+            let child = document.createElement("div")
+            child.style.padding = "2px"
+            let name = country["Country or region"]
+            let num = `${index + 1}`
+            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} ${country["Social support"]} `
+            parent.appendChild(child)
+        })
+
+        socialSort.slice(0,10).forEach((country, index) => {
+            let parent = document.querySelector("#socialgraph")
+            let child = document.createElement("div")
+            child.style.width = "40px"
+            child.style.color = "white"
+            child.innerHTML = `${index}`
+            child.style.border = "3px solid papayawhip"
+            let height = country["Social support"] / gdpSort[0]["Social support"]
+            console.log(height)
+            child.style.marginLeft = "20px"
+            child.style.height = `${height * 100}px`
+            child.style.backgroundColor = "papayawhip"
+            parent.appendChild(child)
+        })
+
+        let healthSort = json.sort((a,b) => b["Healthy life expectancy"] - a["Healthy life expectancy"])
+        healthSort.slice(0,10).forEach((country, index) => {
+            let parent = document.getElementById("health")
+            let child = document.createElement("div")
+            child.style.padding = "2px"
+            let name = country["Country or region"]
+            let num = `${index + 1}`
+            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} ${country["Healthy life expectancy"]} `
+            parent.appendChild(child)
+        })
+
+        healthSort.slice(0,10).forEach((country, index) => {
+            let parent = document.querySelector("#healthgraph")
+            let child = document.createElement("div")
+            child.style.width = "40px"
+            child.style.color = "white"
+            child.innerHTML = `${index}`
+            child.style.border = "3px solid palegreen"
+            let height = country["Healthy life expectancy"] / gdpSort[0]["Healthy life expectancy"]
+            console.log(height)
+            child.style.marginLeft = "20px"
+            child.style.height = `${height * 100}px`
+            child.style.backgroundColor = "palegreen"
+            parent.appendChild(child)
+        })
+
+        let genSort = json.sort((a,b) => b["Generosity"] - a["Generosity"]).slice(0,10)
+        genSort.forEach((country, index) => {
+            let parent = document.getElementById("gen")
+            let child = document.createElement("div")
+            child.style.padding = "2px"
+            let name = country["Country or region"]
+            let num = `${index + 1}`
+            child.innerHTML = `${num.bold()}:\u00A0\u00A0${name} `
+            parent.appendChild(child)
+        })
+
+        healthSort.slice(0,10).forEach((country, index) => {
+            let parent = document.querySelector("#gengraph")
+            let child = document.createElement("div")
+            child.style.width = "40px"
+            child.style.color = "white"
+            child.innerHTML = `${index}`
+            child.style.border = "3px solid paleturquoise"
+            let height = country["Generosity"] / gdpSort[0]["Generosity"]
+            console.log(height)
+            child.style.marginLeft = "20px"
+            child.style.height = `${height * 100}px`
+            child.style.backgroundColor = "paleturquoise"
+            parent.appendChild(child)
+        })
+    }
+    render()
+</script>
+</html>
